@@ -1,0 +1,23 @@
+import datetime
+
+def parse_input_string(serv_timestamp, data):
+    timestamp, sensors_data = data.split(':')
+    try: 
+        date = datetime.fromtimestamp(timestamp)
+        date_today = datetime.now()
+        timedelta = date_today - date
+        if timedelta.days > 1:
+            raise Exception
+    except Exception
+        timestamp = serv_timestamp
+    sensor_strings = sensors_data.split(';')
+    result = [[], [], [], [], [], []]
+    for string in sensor_strings:
+        if string:
+            values = string.split(',')
+            for index in xrange(6):
+                result[index].append(values[index])
+    return result
+            
+            
+        
