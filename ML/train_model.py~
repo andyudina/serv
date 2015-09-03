@@ -39,9 +39,9 @@ for i in xrange(10):
 
 
 clf = RandomForestClassifier(n_estimators=100, class_weight='auto')
-#pr = cross_validation.cross_val_predict(clf, x, y, cv=10)
-clf.fit(x,y)
-#print metrics.accuracy_score(y, pr)
-#print metrics.confusion_matrix(y, pr) 
-joblib.dump(clf, 'rand_forest_model_1.pkl') 
+pr = cross_validation.cross_val_predict(clf, x, y, cv=10)
+#clf.fit(x,y)
+print metrics.accuracy_score(y, pr)
+print metrics.confusion_matrix(y, pr) 
+#joblib.dump(clf, 'rand_forest_model_1.pkl') 
 
