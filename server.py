@@ -1,8 +1,9 @@
-from settings import ServerSettings, VkSettings, MLSettings
+from settings import ServerSettings, VkSettings, MLSettings, DatabaseSettings
 from DataPreprocessor.binary import BinaryParser
 from ML.recoginition_service import RecognitionService
 from PhraseGenerator.simple_phrase_generator import generate_phrase
 from VKApi.api_wrapper import VKApi
+from Logger.sql_logger import SqliteLogger
 import SocketServer
 import time
 
@@ -10,7 +11,7 @@ import time
 recognition_service = RecognitionService(MLSettings.pkl_file_name, ServerSettings.verbose)
 vk_api = VKApi(VkSettings.access_token, VkSettings.base_url, VkSettings.user_id, ServerSettings.verbose)
 parser = BinaryParser(ServerSettings.verbose)
-
+#logger = SqliteLogger(DatabaseSettings.database, DatabaseSettings.table)
 class TCPHandler(SocketServer.BaseRequestHandler):
     def __init__(self, *args, **kwargs):
         self.recognition_service = recognition_service
@@ -27,6 +28,8 @@ class TCPHandler(SocketServer.BaseRequestHandler):
             serv_timestamp = int(time.time())
             preprocessed_data = self.parser.parse_input_string(serv_timestamp, self.data)
             timestamp, current_movement_class = self.recognition_service.get_movement_class(preprocessed_data)
+            with SqliteLogger(DatabaseSettings.database, DatabaseSettings.table) as logger:
+                logger.log(current_movement_class, timestamp)
             phrase_to_send = generate_phrase(current_movement_class)
             self.vk_api.send_message(phrase_to_send)
         except Exception as e:

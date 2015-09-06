@@ -13,4 +13,4 @@ class VkSettings:
     
 
 class MLSettings:
-    pkl_file_name = '/home/nastya/serv/MLrand_forest_model_1.pkl'
+    pkl_file_name = '/home/nastya/serv/ML/rand_forest_model_1.pkl'

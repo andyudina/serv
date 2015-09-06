@@ -14,3 +14,7 @@ class VkSettings:
 
 class MLSettings:
     pkl_file_name = '/home/nastya/serv/ML/rand_forest_model_1.pkl'
+
+class DatabaseSettings:
+    database = 'cat_movement_logs'
+    table = 'logs'
