@@ -1,7 +1,7 @@
 
 
 class ServerSettings:
-    host = 'localhost'
+    host = "192.168.0.12"
     port = 10101
     data_length = 1000
     verbose = True
@@ -13,7 +13,7 @@ class VkSettings:
     
 
 class MLSettings:
-    pkl_file_name = '/home/nastya/serv/ML/rand_forest_model_1.pkl'
+    pkl_file_name = '/home/i.zotov/serv/ML/rand_forest_model_1.pkl'
 
 class DatabaseSettings:
     database = 'cat_movement_logs'

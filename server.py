@@ -24,7 +24,7 @@ class TCPHandler(SocketServer.BaseRequestHandler):
         if time.time() > last_send_timestamp + SAFE_VK_TIME_DELTA:
             self.vk_api = vk_api
             last_send_timestamp = time.time()
-        else
+        else:
             self.vk_api = None
    
         SocketServer.BaseRequestHandler.__init__(self, *args, **kwargs)
