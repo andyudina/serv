@@ -6,11 +6,14 @@ from VKApi.api_wrapper import VKApi
 from Logger.sql_logger import SqliteLogger
 import SocketServer
 import time
+from datetime import datetime, timedelta
 
 #TODO: should be a queue. store last timestamp. If new class timestamp is less than stored timestamp, message shouldn't be sent
 recognition_service = RecognitionService(MLSettings.pkl_file_name, ServerSettings.verbose)
 vk_api = VKApi(VkSettings.access_token, VkSettings.base_url, VkSettings.user_id, ServerSettings.verbose)
 parser = BinaryParser(ServerSettings.verbose)
+current_phrase_to_send=''
+last_send_time = datetime.now()
 #logger = SqliteLogger(DatabaseSettings.database, DatabaseSettings.table)
 class TCPHandler(SocketServer.BaseRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -31,7 +34,11 @@ class TCPHandler(SocketServer.BaseRequestHandler):
             with SqliteLogger(DatabaseSettings.database, DatabaseSettings.table) as logger:
                 logger.log(current_movement_class, timestamp)
             phrase_to_send = generate_phrase(current_movement_class)
-            self.vk_api.send_message(phrase_to_send)
+            current_phrase_to_send += ' ' + phrase_to_send
+            if datetime.now() >= last_send_time + timedelta(seconds=10):    
+                self.vk_api.send_message(current_phrase_to_send)
+                last_send_time = datetime.now()
+                current_phrase_to_send = ' '
         except Exception as e:
             print e
         print 'close connection\n\n'
