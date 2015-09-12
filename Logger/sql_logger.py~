@@ -8,7 +8,7 @@ class SqliteLogger(object):
         self.cursor.execute('''CREATE TABLE  IF NOT EXISTS {}(
                                id INTEGER PRIMARY KEY,
                                class INTEGER,
-                               timestamp UNSIGNED BIGINT'''.format(table))
+                               timestamp UNSIGNED BIGINT)'''.format(table))
         self.connection.commit()
 
 
