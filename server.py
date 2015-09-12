@@ -1,4 +1,4 @@
-from settings import ServerSettings, VkSettings, MLSettings, DatabaseSettings
+from settings import ServerSettings, MLSettings, DatabaseSettings
 from DataPreprocessor.binary import BinaryParser
 from ML.recoginition_service import RecognitionService
 #from PhraseGenerator.simple_phrase_generator import generate_phrase
