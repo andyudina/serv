@@ -32,7 +32,7 @@ class VkSender(object):
             real_last_timestamp = self._get_last_timestamp()
             if real_last_timestamp > self.last_timestamp :
                 self.last_timestamp = real_last_timestamp       
-            self._send_last_class_to_vk()
+                self._send_last_class_to_vk()
             time.sleep(10)
 
 if __name__ == "__main__":
