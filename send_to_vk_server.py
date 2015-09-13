@@ -22,7 +22,7 @@ class VkSender(object):
                                             FROM {}
                                             WHERE timestamp={}
                                             ORDER BY id DESC
-                                            LIMIT 1'''.format(self.table, self.last_timestamp)).format(self.table)).fetchone()[0] 
+                                            LIMIT 1'''.format(self.table, self.last_timestamp)).fetchone()[0] 
         phrase_to_send = generate_phrase(last_class)
         self.vk_api.send_message(phrase_to_send)
 

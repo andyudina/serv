@@ -7,7 +7,7 @@ class BinaryParser(object):
 
     def parse_input_string(self, serv_timestamp, data):
         if self.verbose:
-            print '\nbinary parcer: start processing \npacket={}'.format(data)
+            print '\nbinary parcer: start processing \npacket','{}'.format(data).encode('hex')
         sensor_data_length = struct.unpack('!B', data[:1])[0]
         data = data[1:]
         timestamp  = struct.unpack('!Q', data[:8])[0]
