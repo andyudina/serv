@@ -47,7 +47,7 @@ def f6(x):
         return x
 
 
-y = map(f6, y)
+#y = map(f6, y)
 
 y = numpy.array(y)
 
@@ -61,7 +61,7 @@ pr = cross_validation.cross_val_predict(clf, x_metrics, y, cv=10)
 #print metrics.accuracy_score(y, pr)
 #print metrics.confusion_matrix(y, pr)
 
-delete_rows_indexes = [i for i, y_i in enumerate(pr) if y_i == 3 and y[i] == 2]
+delete_rows_indexes = [i for i, y_i in enumerate(pr) if y_i == 2 and y[i] == 7]
 x_metrics = numpy.delete(x_metrics, delete_rows_indexes, axis=0)
 y = numpy.delete(y, delete_rows_indexes, axis=0)
 #clf.fit(x_metrics,y)

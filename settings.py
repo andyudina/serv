@@ -13,7 +13,7 @@ class VkSettings:
     
 
 class MLSettings:
-    pkl_file_name = '/home/i.zotov/serv/ML/rand_forest_model_3.pkl'
+    pkl_file_name = '/home/i.zotov/serv/ML/rand_forest_model_4.pkl'
 
 class DatabaseSettings:
     database = 'cat_movement_logs'

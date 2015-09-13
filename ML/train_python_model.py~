@@ -48,7 +48,6 @@ def f6(x):
 
 
 y = map(f6, y)
-pi = [float(len(filter(lambda y: y==i, y))) / len(y) for i in xrange(1, 9)]
 
 y = numpy.array(y)
 

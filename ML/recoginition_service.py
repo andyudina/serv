@@ -50,7 +50,7 @@ class RecognitionService(object):
         return map(_replace_nan, arr)
 
     def _train_hmm_model(self):
-        self.sigma = IntegerRange(1,9)
+        self.sigma = IntegerRange(1,10)
         self.m = HMMFromMatrices(self.sigma, DiscreteDistribution(self.sigma), A, B, pi)
         #obs_seq = self.m.sampleSingle(20)
         #print obs_seq
