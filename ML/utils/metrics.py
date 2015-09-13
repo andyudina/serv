@@ -2,15 +2,17 @@ import pandas
 import numpy
 import math
 
+from scipy.ndimage.filters import gaussian_filter1d
+
 def calculate_metrics(data):
     #def generateIntSequence(valString):
     #    return [int(x) for x in valString.split("_")]
-    acc_x = data[1]
-    acc_y = data[2]
-    acc_z = data[3]
-    gyr_x = data[4]
-    gyr_y = data[5]
-    gyr_z = data[6]
+    acc_x = gaussian_filter1d(data[1], 3)
+    acc_y = gaussian_filter1d(data[2], 3)
+    acc_z = gaussian_filter1d(data[3], 3)
+    gyr_x = gaussian_filter1d(data[4], 3)
+    gyr_y = gaussian_filter1d(data[5], 3)
+    gyr_z = gaussian_filter1d(data[6], 3)
     tenSecDataFrame = pandas.DataFrame({"acc_x" : acc_x,
                                         "acc_y" : acc_y,
                                         "acc_z" : acc_z,

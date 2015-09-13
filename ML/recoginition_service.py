@@ -27,8 +27,8 @@ class RecognitionService(object):
 
         res_class = int(self.clf.predict(features)[0])
         self.observ.append(res_class)
-        res_class = self.m.viterbi(EmissionSequence(self.sigma,self.observ))[0][-1]
-        #print EmissionSequence(self.sigma,self.observ)
+        #res_class = self.m.viterbi(EmissionSequence(self.sigma,self.observ))[0][-1]
+        print 'viterby path:', self.m.viterbi(EmissionSequence(self.sigma,self.observ))
         #print res_class 
  
         if self.verbose:
@@ -48,7 +48,7 @@ class RecognitionService(object):
         return map(_replace_nan, arr)
 
     def _train_hmm_model(self):
-        self.sigma = IntegerRange(1,7)
+        self.sigma = IntegerRange(1,9)
         self.m = HMMFromMatrices(self.sigma, DiscreteDistribution(self.sigma), A, B, pi)
         self.m.baumWelch(EmissionSequence(self.sigma, train_seq))
         
