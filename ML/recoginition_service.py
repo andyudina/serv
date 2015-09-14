@@ -10,7 +10,7 @@ class RecognitionService(object):
         self.clf = joblib.load(clf_filename)  
         self.verbose = verbose
         self._train_hmm_model()
-        self.observ = []
+        self.observ = [2, ]
 
     def get_movement_class(self, preprocessed_data):
         if self.verbose:

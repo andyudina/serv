@@ -24,6 +24,13 @@ class TCPHandler(SocketServer.BaseRequestHandler):
    
         SocketServer.BaseRequestHandler.__init__(self, *args, **kwargs)
 
+    def _get_most_voted_class(self, movement_classes):
+        for mov_class in set(movement_classes):
+            if movement_classes.count(mov_class) > len(movement_classes) / 2:
+                return mov_class
+        else:
+            return INVALID_CLASS
+
     def handle(self):
         
         print '\n\ngot connection'
@@ -34,11 +41,11 @@ class TCPHandler(SocketServer.BaseRequestHandler):
             preprocessed_data = self.parser.parse_input_string(serv_timestamp, self.data)
             movement_classes = []
             for window in preprocessed_data:
-                timestamp, current_movement_class = self.recognition_service.get_movement_class(preprocessed_data)
+                timestamp, current_movement_class = self.recognition_service.get_movement_class(window)
                 movement_classes.append(current_movement_class)
 
-            current_movement_class = _get_most_voted_class(self, movement_classes)
-            if current_movement_classes == INVALID_CLASS:
+            current_movement_class = self._get_most_voted_class(movement_classes)
+            if current_movement_class == INVALID_CLASS:
                 print 'election failed. classes: ', movement_classes
             else:   
                 with SqliteLogger(DatabaseSettings.database, DatabaseSettings.table) as logger:
@@ -50,12 +57,7 @@ class TCPHandler(SocketServer.BaseRequestHandler):
             print e
         print 'close connection\n\n'
 
-    def _get_most_voted_class(self, movement_classes):
-        for mov_class in set(movement_classes):
-            if movement_classes.count(mov_class) > len(movement_classes) / 2:
-                return mov_class
-        else:
-            return INVALID_CLASS
+    
 
 if __name__ == "__main__":
     server = SocketServer.TCPServer((ServerSettings.host, ServerSettings.port), 
