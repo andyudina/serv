@@ -1,9 +1,11 @@
 import datetime
 import struct
+import math
 
 class BinaryParser(object):
-    def __init__(self, verbose):
+    def __init__(self, verbose, window_size):
         self.verbose = verbose
+        self.window_size = window_size
 
     def parse_input_string(self, serv_timestamp, data):
         if self.verbose:
@@ -35,15 +37,30 @@ class BinaryParser(object):
         if sensor_data_length > 0:
             if self.verbose:
                 print 'binary parcer: start sensor data parsing '
-            result = [timestamp, [], [], [], [], [], []]    
+            result = [[], [], [], [], [], []]    #TODO: timestamp!!
             for offset in xrange(sensor_data_length):
                 for index in xrange(6):
                     current_chunk = data[offset * 12 + index * 2: offset * 12 + index * 2 + 2]
                     current_chunk_int_repr = struct.unpack('!h', current_chunk)[0]
                     result[index + 1].append(current_chunk_int_repr)
             if self.verbose:
-                print 'binary parcer: stop parsing. result={}'.format(result)   
+                print 'binary parcer: stop parsing. result={}'.format(result)
+            for i in xrange(6):
+                 result[i] = self._split_to_windows(result[i], sensor_data_length)
+            print 'windows: ', result
+            result = zip(*result)
+            print 'zipped: ', result
+            for i, val in enumerate(result):
+               result[i] = [timestamp, ] + result[i]
+            print 'result: ', result
             return result
         else:
             if self.verbose:
                 print 'binary parcer: stop processing. Packet length < 12 byte\n'
+
+        def _split_to_windows(sequence, sensor_data_length):
+            return [sequence[i * self.window_size / 2: i * self.window_size / 2 + self.window_size] \
+                    for i in xrange(2 * (math.ceil(float(sensor_data_length) / self.window_size) - 1) + 1)] 
+
+
+
