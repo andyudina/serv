@@ -5,6 +5,7 @@ class ServerSettings:
     port = 10101
     data_length = 1000
     verbose = True
+    window_size = 28
 
 class VkSettings:
     base_url = 'https://api.vk.com/method/{METHOD_NAME}?{PARAMETERS}'

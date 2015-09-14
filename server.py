@@ -13,7 +13,7 @@ INVALID_CLASS = -1
 #TODO: should be a queue. store last timestamp. If new class timestamp is less than stored timestamp, message shouldn't be sent
 recognition_service = RecognitionService(MLSettings.pkl_file_name, ServerSettings.verbose)
 #vk_api = VKApi(VkSettings.access_token, VkSettings.base_url, VkSettings.user_id, ServerSettings.verbose)
-parser = BinaryParser(ServerSettings.verbose)
+parser = BinaryParser(ServerSettings.verbose, ServerSettings.window_size)
 #logger = SqliteLogger(DatabaseSettings.database, DatabaseSettings.table)
 #last_send_timestamp = time.time()
 class TCPHandler(SocketServer.BaseRequestHandler):
