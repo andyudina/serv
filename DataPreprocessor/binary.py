@@ -6,7 +6,13 @@ class BinaryParser(object):
     def __init__(self, verbose, window_size):
         self.verbose = verbose
         self.window_size = window_size
-
+    
+    def _split_to_windows(self, sequence, sensor_data_length):
+        print 'window_size: ', self.window_size
+        print 'window_number:', 2 * (math.ceil(float(sensor_data_length) / self.window_size) - 1) + 1
+        print len(sequence)
+        return [sequence[i * self.window_size / 2: i * self.window_size / 2 + self.window_size] \
+                    for i in xrange(int(2 * (math.ceil(float(sensor_data_length) / self.window_size) - 1) + 1))]
     def parse_input_string(self, serv_timestamp, data):
         if self.verbose:
             print '\nbinary parcer: start processing \npacket','{}'.format(data).encode('hex')
@@ -42,7 +48,7 @@ class BinaryParser(object):
                 for index in xrange(6):
                     current_chunk = data[offset * 12 + index * 2: offset * 12 + index * 2 + 2]
                     current_chunk_int_repr = struct.unpack('!h', current_chunk)[0]
-                    result[index + 1].append(current_chunk_int_repr)
+                    result[index].append(current_chunk_int_repr)
             if self.verbose:
                 print 'binary parcer: stop parsing. result={}'.format(result)
             for i in xrange(6):
@@ -51,16 +57,13 @@ class BinaryParser(object):
             result = zip(*result)
             print 'zipped: ', result
             for i, val in enumerate(result):
-               result[i] = [timestamp, ] + result[i]
+               result[i] = [timestamp, ] + list(result[i])
             print 'result: ', result
             return result
         else:
             if self.verbose:
                 print 'binary parcer: stop processing. Packet length < 12 byte\n'
 
-        def _split_to_windows(sequence, sensor_data_length):
-            return [sequence[i * self.window_size / 2: i * self.window_size / 2 + self.window_size] \
-                    for i in xrange(2 * (math.ceil(float(sensor_data_length) / self.window_size) - 1) + 1)] 
 
 
 
