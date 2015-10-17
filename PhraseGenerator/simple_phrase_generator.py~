@@ -10,9 +10,15 @@ def generate_phrase(class_number):
     elif class_number == 4:
         return u'идет'
     elif class_number == 5:
-        return u'моется'
+        return u'стоит'
     elif class_number == 6:
+        return u'моется'
+    elif class_number == 7:
+        return u'играет лежа'
+    elif class_number == 8:
         return u'играет'
+    elif class_number == 9:
+        return u'ласка'
     else:
         return u'не определен'
 

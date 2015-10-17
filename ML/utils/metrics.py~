@@ -2,6 +2,8 @@ import pandas
 import numpy
 import math
 
+from scipy.ndimage.filters import gaussian_filter1d
+
 def calculate_metrics(data):
     #def generateIntSequence(valString):
     #    return [int(x) for x in valString.split("_")]

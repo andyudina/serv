@@ -33,7 +33,7 @@ class VkSender(object):
             if real_last_timestamp > self.last_timestamp :
                 self.last_timestamp = real_last_timestamp       
                 self._send_last_class_to_vk()
-            time.sleep(10)
+            time.sleep(3)
 
 if __name__ == "__main__":
     vk_sender = VkSender(DatabaseSettings.database, DatabaseSettings.table,

@@ -4,4 +4,5 @@ TIME	From IP	From Port	To IP	To Port	Method	Error	ASCII	Hex
 2:49:18.390 ????? ???????	185.5.138.242	10101	You	33464	TCP		
 
 SSH:
+ssh -p 22012 i.zotov@tp-lab1.tp.smailru.net
 Y22bDFR7L6cDOgxE		
