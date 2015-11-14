@@ -12,7 +12,7 @@ def generate_phrase(class_number):
     elif class_number == 5:
         return u'лежит'
     elif class_number == 6:
-        return u'лежит
+        return u'лежит'
     elif class_number == 7:
         return u'лежит'
     elif class_number == 8:
